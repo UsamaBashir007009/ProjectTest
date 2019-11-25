@@ -1,5 +1,6 @@
 package com.example.projectphase1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,10 +15,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class SignInScreen extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
+    boolean result = false;
+    DatabaseReference databaseReference;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -47,55 +56,42 @@ public class SignInScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
 
-        email=findViewById(R.id.et_email);
-        password=findViewById(R.id.et_password);
+        email = findViewById(R.id.et_email);
+        password = findViewById(R.id.et_password);
 
     }
 
-    public void call_signup(View view)
-    {
+    public void call_signup(View view) {
         Intent intent = new Intent(SignInScreen.this, SignUpScreen.class);
         startActivity(intent);
     }
 
-    public void call_login(View view)
-    {
-
-        if( TextUtils.isEmpty(email.getText())) {
-            email.setError( "Email is required!" );
-            this.show_toast("Email is required!");
-        }
+    public void call_login(View view) {
 
 
-        else {
-            String email1 = email.getText().toString().trim();
-            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(email.getText().toString())) {
+                    if (password.getText().toString().equals(dataSnapshot.child(email.getText().toString()).child("user_Password").getValue())) {
+                        Toast.makeText(SignInScreen.this, "succexx", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SignInScreen.this, "pass", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(SignInScreen.this, "jango", Toast.LENGTH_LONG).show();
 
-            if (email1.matches(emailPattern)) {
-
-                if(TextUtils.isEmpty((password.getText()))) {
-                   this.show_toast("Enter your password!");
-                }
-
-                else if(password.getText().length()<8) {
-                    this.show_toast("Password should be minimum 8 characters long");
-                }
-
-                else {
-                    Intent intent = new Intent(SignInScreen.this, HomePageTabScreen.class);
-                    startActivity(intent);
-                    email.getText().clear();
-                    password.getText().clear();
-                    email.setSelection(0);
                 }
             }
 
-            else {
-                this.show_toast("Invalid email address");
-            }
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
     }
+
 
     public void show_toast(String string)
     {

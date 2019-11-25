@@ -11,24 +11,34 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SignUpScreen extends AppCompatActivity {
 
     private EditText name;
     private EditText email;
+    private EditText username;
     private EditText password;
     private EditText confirmPassword;
     private CheckBox termsNconditions;
+    DatabaseReference databaseReference;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
 
+        user=new User();
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Users");
         name=findViewById(R.id.et_signup_name);
         email=findViewById(R.id.et_signup_email);
         confirmPassword=findViewById(R.id.et_signup_cpassword);
         password=findViewById(R.id.et_signup_password);
         termsNconditions=findViewById(R.id.checkBox_terms);
+        username=findViewById(R.id.username);
     }
 
 
@@ -68,11 +78,19 @@ public class SignUpScreen extends AppCompatActivity {
                         } else {
                             if (termsNconditions.isChecked()) {
 
+                                user.setUser_Email(email.getText().toString());
+                                user.setUser_Name(name.getText().toString());
+                                user.setUser_Password(password.getText().toString());
+                                user.setUser_UserName(username.getText().toString());
+
+                                databaseReference.child(user.getUser_UserName()).setValue(user);
                                 this.show_toast("Successfully Logged In!");
+
                                 Intent intent = new Intent(SignUpScreen.this, HomePageTabScreen.class);
                                 startActivity(intent);
                                 email.getText().clear();
                                 name.getText().clear();
+                                username.getText().clear();
                                 password.getText().clear();
                                 confirmPassword.getText().clear();
                                 termsNconditions.toggle();

@@ -54,7 +54,7 @@
             android:layout_marginRight="10dp"
             android:drawableStart="@drawable/icon_email"
             android:drawablePadding="5dp"
-            android:hint="Email"
+            android:hint="Username"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
