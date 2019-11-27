@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -133,11 +135,14 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                                 notificationManager.createNotificationChannel(notificationChannel);
                             }
 
+                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
                             NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext,CHANNEL_ID);
                             b.setContentTitle("E-Worker");
                             b.setSmallIcon(R.drawable.app_icon);
                             b.setContentText("Task has been registered");
-                            b.setPriority(NotificationCompat.PRIORITY_HIGH
+                            b.setSound(alarmSound);
+                            b.setPriority(NotificationCompat.PRIORITY_MAX
                             );
 
                             NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(mcontext);
