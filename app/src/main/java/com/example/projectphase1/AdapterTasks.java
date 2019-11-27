@@ -1,9 +1,15 @@
 package com.example.projectphase1;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -39,6 +47,8 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     EditText editText;
     Dialog dialog;
     ProgressBar progressBar;
+    private final String CHANNEL_ID = "Personal Notification";
+    private final int NOTIFICATION_ID = 1;
     ClassMyTasksFB classMyTasksFB;
     public AdapterTasks(Context mcontext, List<ClassTasks> jobsClassList,ProgressBar p) {
         this.mcontext = mcontext;
@@ -107,9 +117,34 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
 
                             Toast.makeText(mcontext, "the request for task " + rName.getText() + " has sent", Toast.LENGTH_SHORT).show();
                             dialog.hide();
+                            text.getText().clear();
+                            editText.getText().clear();
 
-                            editText.setText("");
-                            text.setText("");
+                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+                            {
+                                CharSequence name = "Personal Notification";
+                                String description = "NOtification";
+                                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+                                NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,name,importance);
+                                notificationChannel.setDescription(description);
+
+                                NotificationManager notificationManager = (NotificationManager) mcontext.getSystemService(mcontext.NOTIFICATION_SERVICE);
+                                notificationManager.createNotificationChannel(notificationChannel);
+                            }
+
+                            NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext,CHANNEL_ID);
+                            b.setContentTitle("E-Worker");
+                            b.setSmallIcon(R.drawable.app_icon);
+                            b.setContentText("Task has been registered");
+                            b.setPriority(NotificationCompat.PRIORITY_HIGH
+                            );
+
+                            NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(mcontext);
+                            notificationManagerCompat.notify(NOTIFICATION_ID,b.build());
+
+
+
                         }
                     }
                 });
@@ -155,5 +190,20 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
             job_ammount= (TextView) itemView.findViewById(R.id.job_item_ammount);
 
         }
+    }
+
+    public void displayNotif()
+    {
+        NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext,CHANNEL_ID);
+        b.setContentTitle("E-Worker");
+        b.setContentText("Task has been registered");
+        b.setPriority(NotificationCompat.PRIORITY_DEFAULT
+        );
+
+        NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(mcontext);
+        notificationManagerCompat.notify(NOTIFICATION_ID,b.build());
+
+        editText.setText("");
+        text.setText("");
     }
 }
