@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +17,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,12 +56,13 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
             public void onClick(View v) {
 
 
-             //   TextView rID=(TextView) dialog.findViewById(R.id.rIDd);
+                //   TextView rID=(TextView) dialog.findViewById(R.id.rIDd);
                 final TextView rName=(TextView) dialog.findViewById(R.id.dialog_task_name);
                 ImageView rImage=(ImageView)dialog.findViewById(R.id.job_request_image);
-             //   rID.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId());
+                //   rID.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId());
                 rName.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName());
-                rImage.setImageResource(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto());
+                Picasso.with(mcontext).load(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()).into( rImage);
+
                 dialog.show();
                 text=dialog.findViewById(R.id.dialogue_task_detail);
                 editText=dialog.findViewById(R.id.dialogue_Task_location);
@@ -88,9 +91,9 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        holder.job_ammount.setText(""+jobsClassList.get(position).getJobammount());
         holder.job_name.setText(jobsClassList.get(position).getJobName());
-        holder.job_image.setImageResource(jobsClassList.get(position).getJobPhoto());
-
+        Picasso.with(mcontext).load(jobsClassList.get(position).getJobPhoto()).into(  holder.job_image);
     }
 
     @Override
@@ -103,12 +106,14 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
         private LinearLayout linearLayout_Job_item;
         private TextView job_name;
         private ImageView job_image;
+        private TextView job_ammount;
         public MyViewHolder( View itemView) {
             super(itemView);
 
             linearLayout_Job_item=(LinearLayout)itemView.findViewById(R.id.job_item_id);
             job_name= (TextView)itemView.findViewById(R.id.job_namee_id);
             job_image= (ImageView) itemView.findViewById(R.id.job_item_imagee);
+            job_ammount= (TextView) itemView.findViewById(R.id.job_item_ammount);
 
         }
     }

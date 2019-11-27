@@ -3,12 +3,23 @@ package com.example.projectphase1;
 public class ClassTasks {
     private int jobId;
     private String jobName;
-    private int jobPhoto;
+    private String jobPhoto;
+    private double jobammount;
 
-    public ClassTasks(int jobId, String jobName, int jobPhoto) {
+
+    public ClassTasks(int jobId, String jobName, String jobPhoto,double jobammount) {
         this.jobId = jobId;
         this.jobName = jobName;
         this.jobPhoto = jobPhoto;
+        this.jobammount=jobammount;
+    }
+
+    public double getJobammount() {
+        return jobammount;
+    }
+
+    public void setJobammount(double jobammount) {
+        this.jobammount = jobammount;
     }
 
     public void setJobId(int jobId) {
@@ -19,7 +30,7 @@ public class ClassTasks {
         this.jobName = jobName;
     }
 
-    public void setJobPhoto(int jobPhoto) {
+    public void setJobPhoto(String jobPhoto) {
         this.jobPhoto = jobPhoto;
     }
 
@@ -31,7 +42,7 @@ public class ClassTasks {
         return jobName;
     }
 
-    public int getJobPhoto() {
+    public String getJobPhoto() {
         return jobPhoto;
     }
 }
