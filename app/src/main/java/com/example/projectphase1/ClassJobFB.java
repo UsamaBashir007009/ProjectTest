@@ -9,6 +9,7 @@ public class ClassJobFB {
     public ClassJobFB()
     {
 
+
     }
     public ClassJobFB(String job_img_url,int job_id, String job_name, double job_ammount) {
         this.job_id = job_id;
