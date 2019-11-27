@@ -118,6 +118,15 @@ public class HomePageTabScreen extends AppCompatActivity {
 
     public void call_complain(View view)
     {
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        String[] recipients={"usamabashir007009@gmail.com"};
+        intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+        intent.setType("text/html");
+        intent.setPackage("com.google.android.gm");
+        this.startActivity(Intent.createChooser(intent, "Send mail"));
+
+
+
         this.show_toast("Clicked");
     }
 

@@ -31,6 +31,7 @@ public class FragmentTask extends Fragment {
     private RecyclerView myRecyclerView;
     private List<ClassTasks> myList;
     AdapterTasks recyclerViewAdopter;
+    ProgressBar progressBar;
 
     public FragmentTask() {
         // Required empty public constructor
@@ -40,8 +41,9 @@ public class FragmentTask extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_fragment_task, container, false);
+        progressBar=view.findViewById(R.id.progressBar);
         myRecyclerView = view.findViewById(R.id.recycleView_task);
-        recyclerViewAdopter = new AdapterTasks(getContext(), myList);
+        recyclerViewAdopter = new AdapterTasks(getContext(), myList,progressBar);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdopter);
         return view;

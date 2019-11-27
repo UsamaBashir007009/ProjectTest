@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +32,12 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     EditText text;
     EditText editText;
     Dialog dialog;
+    ProgressBar progressBar;
 
-    public AdapterTasks(Context mcontext, List<ClassTasks> jobsClassList) {
+    public AdapterTasks(Context mcontext, List<ClassTasks> jobsClassList,ProgressBar p) {
         this.mcontext = mcontext;
         this.jobsClassList = jobsClassList;
+        progressBar=p;
     }
 
     @NonNull
@@ -94,6 +97,7 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
         holder.job_ammount.setText(""+jobsClassList.get(position).getJobammount());
         holder.job_name.setText(jobsClassList.get(position).getJobName());
         Picasso.with(mcontext).load(jobsClassList.get(position).getJobPhoto()).into(  holder.job_image);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
