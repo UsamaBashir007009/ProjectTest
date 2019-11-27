@@ -14,6 +14,7 @@ public class ClassJobFB {
     public ClassJobFB(String job_img_url,int job_id, String job_name, double job_ammount) {
         this.job_id = job_id;
         this.job_name = job_name;
+
         this.job_ammount = job_ammount;
         this.job_img_url=job_img_url;
     }
