@@ -9,7 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
-public class RegistrationScreen extends AppCompatActivity {
+public class
+RegistrationScreen extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
 

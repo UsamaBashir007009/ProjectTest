@@ -75,12 +75,13 @@ public class SignInScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(email.getText().toString())) {
                     if (password.getText().toString().equals(dataSnapshot.child(email.getText().toString()).child("user_Password").getValue())) {
-                        Toast.makeText(SignInScreen.this, "succexx", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignInScreen.this, "Successfully Loggedin", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignInScreen.this,HomePageTabScreen.class));
                     } else {
-                        Toast.makeText(SignInScreen.this, "pass", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignInScreen.this, "Password Incorrect", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(SignInScreen.this, "jango", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInScreen.this, "Incorrect User Name", Toast.LENGTH_LONG).show();
 
                 }
             }

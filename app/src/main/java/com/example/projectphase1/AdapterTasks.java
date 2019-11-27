@@ -20,8 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder> {
@@ -30,10 +35,11 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     Context mcontext;
     List<ClassTasks> jobsClassList;
     EditText text;
+    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference().child("tasks");
     EditText editText;
     Dialog dialog;
     ProgressBar progressBar;
-
+    ClassMyTasksFB classMyTasksFB;
     public AdapterTasks(Context mcontext, List<ClassTasks> jobsClassList,ProgressBar p) {
         this.mcontext = mcontext;
         this.jobsClassList = jobsClassList;
@@ -63,6 +69,7 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                 final TextView rName=(TextView) dialog.findViewById(R.id.dialog_task_name);
                 ImageView rImage=(ImageView)dialog.findViewById(R.id.job_request_image);
                 //   rID.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId());
+
                 rName.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName());
                 Picasso.with(mcontext).load(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()).into( rImage);
 
@@ -78,6 +85,26 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                             Toast.makeText(mcontext,"Enter the proper required details",Toast.LENGTH_SHORT).show();
                         }
                         else {
+
+//                                ClassJobFB classJobFB=new ClassJobFB(jobsClassList
+//                                        .get(myViewHolder.getAdapterPosition()).getJobPhoto()
+//                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId()
+//                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName()
+//                                        , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount());
+
+                                String id=databaseReference.push().getKey();
+                                classMyTasksFB=new ClassMyTasksFB(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()
+                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId()
+                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName()
+                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount()
+                                        ,id
+                                        ,text.getText().toString()
+                                        ,"usama"
+                                        ,editText.getText().toString(),getDate());
+                                databaseReference.child(id).setValue(classMyTasksFB);
+
+
+
                             Toast.makeText(mcontext, "the request for task " + rName.getText() + " has sent", Toast.LENGTH_SHORT).show();
                             dialog.hide();
 
@@ -100,6 +127,14 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
         progressBar.setVisibility(View.GONE);
     }
 
+    public String getDate()
+    {
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c);
+        return formattedDate;
+    }
     @Override
     public int getItemCount() {
         return jobsClassList.size();

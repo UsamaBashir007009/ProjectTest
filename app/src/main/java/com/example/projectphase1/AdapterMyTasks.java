@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -57,16 +59,17 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
                 TextView task_dialogue_location=(TextView) dialog.findViewById(R.id.dialogue_myTask_Location);
                 TextView task_dialogue_bill=(TextView) dialog.findViewById(R.id.dialogue_myTask_bill);
                 TextView task_dialogue_date=(TextView) dialog.findViewById(R.id.dialogue_myTask_date);
-                TextView task_dialogue_UID=(TextView) dialog.findViewById(R.id.dialogue_myTask_Userid);
+                TextView task_dialogue_UID=(TextView) dialog.findViewById(R.id.dialogue_myTask_description);
 
-                task_dialogue_bill.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTaskBill());
-                task_dialogue_date.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTaskDate());
-                task_dialogue_ID.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTaskId());
-                task_dialogue_job_id.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTask_job_id());
-                task_dialogue_Jobname.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTask_Job_Name());
-                task_dialogue_location.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getTaskLocation());
-                task_dialogue_UID.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getUserId());
-                task_dialogue_image.setImageResource(myTasksClassList.get(myViewHolder.getAdapterPosition()).getTaskImage());
+                task_dialogue_bill.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaskBill());
+                task_dialogue_date.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaskDate());
+                task_dialogue_ID.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaskId());
+                task_dialogue_job_id.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_task_job_id());
+                task_dialogue_Jobname.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_Job_Name());
+                task_dialogue_location.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaskLocation());
+                task_dialogue_UID.setText(""+myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaakDescription());
+
+                Picasso.with(mcontext).load(myTasksClassList.get(myViewHolder.getAdapterPosition()).getClassMyTask_TaskImage()).into( task_dialogue_image);
 
 
                 dialog.show();
@@ -87,11 +90,12 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterMyTasks.MyViewHolder2 holder, int position) {
-        holder.task_name.setText(myTasksClassList.get(position).getTask_Job_Name());
-        holder.task_image.setImageResource(myTasksClassList.get(position).getTaskImage());
+    public void onBindViewHolder(@NonNull MyViewHolder2 holder, int position) {
+        holder.task_name.setText(myTasksClassList.get(position).getClassMyTask_Job_Name());
+        Picasso.with(mcontext).load(myTasksClassList.get(position).getClassMyTask_TaskImage()).into(holder.task_image );
 
-        int status = myTasksClassList.get(position).getUserId();
+
+        int status = myTasksClassList.get(position).getClassMyTask_task_job_id();
 
         if(status==1)
         {
