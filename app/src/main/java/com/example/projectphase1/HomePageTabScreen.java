@@ -125,9 +125,6 @@ public class HomePageTabScreen extends AppCompatActivity {
         intent.setPackage("com.google.android.gm");
         this.startActivity(Intent.createChooser(intent, "Send mail"));
 
-
-
-        this.show_toast("Clicked");
     }
 
     public void show_toast(String string)
