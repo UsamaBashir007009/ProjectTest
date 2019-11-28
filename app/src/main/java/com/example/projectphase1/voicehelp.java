@@ -34,6 +34,7 @@ public class voicehelp extends AppCompatActivity {
                 stopmedia();
             }
         });
+
     }
     public void stopvoice(View view)
     {
