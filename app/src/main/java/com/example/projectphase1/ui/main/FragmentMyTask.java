@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.projectphase1.AdapterMyTasks;
@@ -39,7 +40,7 @@ import kotlin.jvm.internal.LocalVariableReferencesKt;
 public class FragmentMyTask extends Fragment {
     View view;
     String u="usama";
-    int i=0;
+    ProgressBar progressBar22;
     private AdapterMyTasks recyclerViewAdopter;
     private RecyclerView myRecyclerView;
     private List<ClassMyTask> myList;
@@ -50,7 +51,8 @@ public class FragmentMyTask extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=  inflater.inflate(R.layout.fragment_fragment_my_task,container,false);
         myRecyclerView = view.findViewById(R.id.recycleView_myTask);
-        recyclerViewAdopter = new AdapterMyTasks(getContext(),myList);
+        progressBar22=view.findViewById(R.id.progressBar2);
+        recyclerViewAdopter = new AdapterMyTasks(getContext(),myList,progressBar22);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(recyclerViewAdopter);
         return  view;
@@ -71,7 +73,7 @@ public class FragmentMyTask extends Fragment {
                     if(data.child("myTask_username").getValue().equals(u))
                     {
 
-                        Toast.makeText(getContext(),""+data.child("myTask_date").getValue(),Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getContext(),""+data.child("myTask_date").getValue(),Toast.LENGTH_LONG).show();
                         myList.add(new ClassMyTask(data.child("mytask_id").getValue()+""
                                 ,data.child("myTask_username").getValue()+""
                                 ,data.child("job_name").getValue()+""

@@ -8,22 +8,32 @@
     android:layout_gravity="center"
     android:layout_height="wrap_content">
 
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/mytask_dialogue_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/icon_worker"
-        app:civ_border_color="#3f51b5"
-        android:layout_gravity="center"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#3f51b5"
-        app:civ_shadow_radius="10" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="10dp"
+        android:layout_gravity="center">
+
+
+
+        <ImageView
+            android:id="@+id/mytask_dialogue_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_worker"
+            />
+
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/mytask_dialogue_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:text="Name"
@@ -118,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Description"
+            android:text="Status"
             android:layout_marginLeft="10dp"
             android:layout_weight="2"
             android:textSize="18sp"

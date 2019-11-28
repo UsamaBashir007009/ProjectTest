@@ -68,6 +68,11 @@ public class HomePageTabScreen extends AppCompatActivity {
             this.show_toast("Successfully Logged Out!");
 
         }
+        else if(item.getItemId()==R.id.menu_voice_help)
+        {
+            startActivity(new Intent(HomePageTabScreen.this,voicehelp.class));
+
+        }
         return true;
     }
 

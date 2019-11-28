@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -38,6 +40,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Delayed;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder> {
 
@@ -98,58 +103,30 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                         }
                         else {
 
-//                                ClassJobFB classJobFB=new ClassJobFB(jobsClassList
-//                                        .get(myViewHolder.getAdapterPosition()).getJobPhoto()
-//                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId()
-//                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName()
-//                                        , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount());
+                            if(isConnectedToInternet()) {
 
-                                String id=databaseReference.push().getKey();
-                                classMyTasksFB=new ClassMyTasksFB(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()
-                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId()
-                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName()
-                                        ,jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount()
-                                        ,id
-                                        ,text.getText().toString()
-                                        ,"usama"
-                                        ,editText.getText().toString(),getDate());
+                                String id = databaseReference.push().getKey();
+                                classMyTasksFB = new ClassMyTasksFB(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()
+                                        , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobId()
+                                        , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName()
+                                        , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount()
+                                        , id
+                                        , text.getText().toString()
+                                        , "usama"
+                                        , editText.getText().toString(), getDate());
                                 databaseReference.child(id).setValue(classMyTasksFB);
+                                
+                                Toast.makeText(mcontext, "the request for task " + rName.getText() + " has sent", Toast.LENGTH_SHORT).show();
+                                dialog.hide();
+                                text.getText().clear();
+                                editText.getText().clear();
+                                displayNotify("Your Task has been Register. Worker will be at your place with in 24 Hours");
 
-
-
-                            Toast.makeText(mcontext, "the request for task " + rName.getText() + " has sent", Toast.LENGTH_SHORT).show();
-                            dialog.hide();
-                            text.getText().clear();
-                            editText.getText().clear();
-
-                            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-                            {
-                                CharSequence name = "Personal Notification";
-                                String description = "NOtification";
-                                int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-                                NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,name,importance);
-                                notificationChannel.setDescription(description);
-
-                                NotificationManager notificationManager = (NotificationManager) mcontext.getSystemService(mcontext.NOTIFICATION_SERVICE);
-                                notificationManager.createNotificationChannel(notificationChannel);
                             }
-
-                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-                            NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext,CHANNEL_ID);
-                            b.setContentTitle("E-Worker");
-                            b.setSmallIcon(R.drawable.app_icon);
-                            b.setContentText("Task has been registered");
-                            b.setSound(alarmSound);
-                            b.setPriority(NotificationCompat.PRIORITY_MAX
-                            );
-
-                            NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(mcontext);
-                            notificationManagerCompat.notify(NOTIFICATION_ID,b.build());
-
-
-
+                            else
+                            {
+                                displayNotify("Request cancelled ....Check your INTERNET CONNECTION");
+                            }
                         }
                     }
                 });
@@ -197,18 +174,49 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
         }
     }
 
-    public void displayNotif()
+    public boolean isConnectedToInternet(){
+        boolean have_WIFI = false;
+        boolean have_MData = false;
+
+        ConnectivityManager connectivityManager =(ConnectivityManager) mcontext.getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for(NetworkInfo info:networkInfos)
+        {
+            if(info.getTypeName().equalsIgnoreCase("WIFI"))
+                if(info.isConnected())
+                    have_WIFI=true;
+            if(info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if(info.isConnected())
+                    have_MData=true;
+        }
+        return have_MData||have_WIFI;
+    }
+    public void displayNotify(String s)
     {
-        NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext,CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Personal Notification";
+            String description = "NOtification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationChannel.setDescription(description);
+
+            NotificationManager notificationManager = (NotificationManager) mcontext.getSystemService(mcontext.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder b = new NotificationCompat.Builder(mcontext, CHANNEL_ID);
         b.setContentTitle("E-Worker");
-        b.setContentText("Task has been registered");
-        b.setPriority(NotificationCompat.PRIORITY_DEFAULT
+        b.setSmallIcon(R.drawable.app_icon);
+        b.setContentText(s);
+        b.setSound(alarmSound);
+        b.setPriority(NotificationCompat.PRIORITY_MAX
         );
 
-        NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(mcontext);
-        notificationManagerCompat.notify(NOTIFICATION_ID,b.build());
-
-        editText.setText("");
-        text.setText("");
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(mcontext);
+        notificationManagerCompat.notify(NOTIFICATION_ID, b.build());
     }
 }

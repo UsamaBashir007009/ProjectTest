@@ -3,6 +3,8 @@ package com.example.projectphase1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -46,22 +48,59 @@ RegistrationScreen extends AppCompatActivity {
 
     public void call_r_signup(View view)
     {
-        Intent intent = new Intent(RegistrationScreen.this, SignUpScreen.class);
-        startActivity(intent);
+        if(this.isConnectedToInternet()) {
+            Intent intent = new Intent(RegistrationScreen.this, SignUpScreen.class);
+            startActivity(intent);
+        }
+        else
+        {
+            this.show_toast("Internet not connected");
+        }
     }
 
     public void call_r_signin(View view)
     {
-        Intent intent = new Intent(RegistrationScreen.this, SignInScreen.class);
-        startActivity(intent);
+        if(this.isConnectedToInternet()) {
+            Intent intent = new Intent(RegistrationScreen.this, SignInScreen.class);
+            startActivity(intent);
+        }
+        else
+        {
+            this.show_toast("Internet not connected");
+        }
     }
 
     public void call_google(View view)
     {
-        Intent intent = new Intent(RegistrationScreen.this, HomePageTabScreen.class);
-        startActivity(intent);
+        if(this.isConnectedToInternet()) {
+            Intent intent = new Intent(RegistrationScreen.this, HomePageTabScreen.class);
+            startActivity(intent);
+        }
+        else
+        {
+            this.show_toast("Internet not connected");
+        }
     }
 
+
+    public boolean isConnectedToInternet(){
+        boolean have_WIFI = false;
+        boolean have_MData = false;
+
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+
+        for(NetworkInfo info:networkInfos)
+        {
+            if(info.getTypeName().equalsIgnoreCase("WIFI"))
+                if(info.isConnected())
+                    have_WIFI=true;
+            if(info.getTypeName().equalsIgnoreCase("MOBILE"))
+                if(info.isConnected())
+                    have_MData=true;
+        }
+        return have_MData||have_WIFI;
+    }
 
     public void show_toast(String string)
     {

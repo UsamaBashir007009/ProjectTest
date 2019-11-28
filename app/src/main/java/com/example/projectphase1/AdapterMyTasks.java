@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +29,14 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
 
 
     Context mcontext;
+    ProgressBar p;
     List<ClassMyTask> myTasksClassList;
     Dialog dialog;
 
-    public AdapterMyTasks(Context mcontext, List<ClassMyTask> jobsClassList) {
+    public AdapterMyTasks(Context mcontext, List<ClassMyTask> jobsClassList,ProgressBar pp) {
         this.mcontext = mcontext;
         this.myTasksClassList = jobsClassList;
+        p=pp;
     }
 
     @NonNull
@@ -93,21 +96,7 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder2 holder, int position) {
         holder.task_name.setText(myTasksClassList.get(position).getClassMyTask_Job_Name());
         Picasso.with(mcontext).load(myTasksClassList.get(position).getClassMyTask_TaskImage()).into(holder.task_image );
-
-
-        int status = myTasksClassList.get(position).getClassMyTask_task_job_id();
-
-        if(status==1)
-        {
-            holder.task_status.setText("On Going");
-            holder.task_status.setTextColor(Color.rgb(0,200,0));
-        }
-
-        else
-        {
-            holder.task_status.setText("Completed");
-            holder.task_status.setTextColor(Color.rgb(0,0,200));
-        }
+        p.setVisibility(View.GONE);
 
     }
 
@@ -124,6 +113,7 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
         private TextView task_status;
         public MyViewHolder2( View itemView) {
             super(itemView);
+
 
             linearLayout_Job_item=(LinearLayout)itemView.findViewById(R.id.mytask_item_id);
             task_name= (TextView)itemView.findViewById(R.id.task_item_name);

@@ -22,6 +22,11 @@
                 android:title="Help"
                 android:icon="@drawable/icon_help"
                 app:showAsAction="never"/>
+            <item
+                android:id="@+id/menu_voice_help"
+                android:title="Voice Help"
+                android:icon="@drawable/icon_help"
+                app:showAsAction="never"/>
 
             <item
                 android:id="@+id/menu_logout"

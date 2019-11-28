@@ -1,14 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.FragmentProfile">
+    android:padding="15dp"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.PlaceholderFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif-monospace"
+            android:gravity="center_horizontal"
+            android:text="PROFILE"
+            android:textColor="@color/colorPrimary"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/profile_tv_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:background="@drawable/round_tasks"
+            android:text="Ehtisham"
+            android:textColor="@color/BlackText"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/profile_tv_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        android:enabled="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/BlackText"
+        android:background="@drawable/round_tasks"
+        android:text="  Ehtisham Hafeez"
+        android:gravity="fill"
+        android:textSize="20dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/profile_tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/BlackText"
+        android:enabled="false"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/round_tasks"
+        android:gravity="fill"
+        android:text="  ehtishamhafeez37@gmail.com"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/profile_tv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/pr"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="10dp"
+        android:enabled="false"
+        android:textColor="@color/BlackText"
+        android:background="@drawable/round_tasks"
+        android:gravity="fill"
+        android:text="  0303-6436506"
+        android:textSize="20dp" />
+    <EditText
+        android:id="@+id/profile_tv_adress"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:enabled="false"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/BlackText"
+        android:background="@drawable/round_tasks"
+        android:gravity="fill"
+        android:text="  Adress"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/profile_tv_changebtn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="monospace"
+        android:text="Change Profile"
+        android:textColor="@color/White"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/profile_tv_savebtn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:enabled="false"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="monospace"
+        android:text="Save Profile"
+        android:textColor="@color/White"
+        android:textSize="20sp" />
+
+</LinearLayout>
