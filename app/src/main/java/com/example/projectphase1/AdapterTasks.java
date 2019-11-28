@@ -1,12 +1,13 @@
 package com.example.projectphase1;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.RingtoneManager;
@@ -14,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Delayed;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
@@ -112,7 +112,7 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                                         , jobsClassList.get(myViewHolder.getAdapterPosition()).getJobammount()
                                         , id
                                         , text.getText().toString()
-                                        , "usama"
+                                        , getDefaults("username",mcontext)
                                         , editText.getText().toString(), getDate());
                                 databaseReference.child(id).setValue(classMyTasksFB);
                                 
@@ -120,7 +120,8 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
                                 dialog.hide();
                                 text.getText().clear();
                                 editText.getText().clear();
-                                displayNotify("Your Task has been Register. Worker will be at your place with in 24 Hours");
+                                show_notifiication();
+                             //   displayNotify("Your Task has been Register. Worker will be at your place with in 24 Hours");
 
                             }
                             else
@@ -155,6 +156,11 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     @Override
     public int getItemCount() {
         return jobsClassList.size();
+    }
+
+    public static String getDefaults(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, null);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
@@ -219,4 +225,17 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(mcontext);
         notificationManagerCompat.notify(NOTIFICATION_ID, b.build());
     }
+
+    public void show_notifiication()
+    {
+        AlarmManager alarmManager = (AlarmManager)mcontext.getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent(mcontext, AlarmReceiver.class);
+        PendingIntent broadcast = PendingIntent.getBroadcast(mcontext, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 5);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+    }
+
 }

@@ -21,6 +21,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomePageTabScreen"
+            android:screenOrientation="portrait"
             android:label="E-Workers" />
         <activity
             android:name=".SignInScreen"
@@ -37,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".AlarmReceiver"/>
+
     </application>
 
 </manifest>

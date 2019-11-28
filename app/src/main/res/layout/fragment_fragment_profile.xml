@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,32 +27,41 @@
             android:textSize="60sp"
             android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/profile_tv_username_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="User Name"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
         <EditText
             android:id="@+id/profile_tv_username"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:enabled="false"
             android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/round_tasks"
             android:text="Ehtisham"
             android:textColor="@color/BlackText"
             android:textSize="25dp"
             android:textStyle="bold" />
 
-
-    <EditText
-        android:id="@+id/profile_tv_name"
+    <TextView
+        android:id="@+id/profile_tv_useremail_heading"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:enabled="false"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/BlackText"
-        android:background="@drawable/round_tasks"
-        android:text="  Ehtisham Hafeez"
-        android:gravity="fill"
-        android:textSize="20dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="Email"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/profile_tv_email"
@@ -54,13 +69,51 @@
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/BlackText"
+        android:textAlignment="center"
         android:enabled="false"
-        android:layout_marginTop="12dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/round_tasks"
         android:gravity="fill"
         android:text="  ehtishamhafeez37@gmail.com"
         android:textSize="20dp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="Name"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/profile_tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/round_tasks"
+        android:enabled="false"
+        android:gravity="fill"
+        android:textAlignment="center"
+        android:text="  Ehtisham Hafeez"
+        android:textColor="@color/BlackText"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+
+        android:gravity="center_horizontal"
+        android:text="Phone Number"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/profile_tv_phone"
@@ -68,26 +121,37 @@
         android:layout_height="50dp"
         android:layout_below="@+id/pr"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
         android:layout_marginRight="10dp"
+        android:textAlignment="center"
         android:enabled="false"
         android:textColor="@color/BlackText"
         android:background="@drawable/round_tasks"
         android:gravity="fill"
         android:text="  0303-6436506"
         android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:text="Address"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/profile_tv_adress"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@+id/pr"
         android:layout_marginLeft="10dp"
-        android:enabled="false"
-        android:layout_marginTop="12dp"
         android:layout_marginRight="10dp"
+        android:textAlignment="center"
+        android:enabled="false"
         android:textColor="@color/BlackText"
         android:background="@drawable/round_tasks"
-        android:gravity="fill"
-        android:text="  Adress"
+        android:text="Address"
         android:textSize="20dp" />
 
     <Button
@@ -95,12 +159,13 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
         android:fontFamily="monospace"
-        android:text="Change Profile"
-        android:textColor="@color/White"
+        android:text="Edit Profile"
+        android:textColor="@color/BlackText"
         android:textSize="20sp" />
+
     <Button
         android:id="@+id/profile_tv_savebtn"
         android:layout_width="250dp"
@@ -108,11 +173,12 @@
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
         android:enabled="false"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
         android:fontFamily="monospace"
         android:text="Save Profile"
-        android:textColor="@color/White"
+        android:textColor="@color/BlackText"
         android:textSize="20sp" />
 
 </LinearLayout>
+</ScrollView>

@@ -116,10 +116,10 @@ public class SignUpScreen extends AppCompatActivity {
 
                                                     db.child(user_name.getText().toString()).setValue(new ClassProfile(user_name.getText().toString(),name.getText().toString(),email.getText().toString(),"phone number","Adress"));
 
-                                                    Intent intent = new Intent(SignUpScreen.this, HomePageTabScreen.class);
+                                                    Intent intent = new Intent(SignUpScreen.this, SignInScreen.class);
                                                     startActivity(intent);
 
-                                                    show_toast("Successfully Logged In!");
+                                                    show_toast("Account successfully created, Login now!");
 
                                                     email.getText().clear();
                                                     name.getText().clear();

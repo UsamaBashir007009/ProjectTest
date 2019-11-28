@@ -1,6 +1,7 @@
 package com.example.projectphase1.ui.main;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,9 @@ public class FragmentProfile extends Fragment {
     EditText profile__name;
     EditText profile__number;
     EditText getProfile__Adress;
+    TextView username_heading;
+    TextView email_heading;
+    String username;
     EditText em;
     TextView tv;
     Button change;
@@ -44,6 +49,8 @@ public class FragmentProfile extends Fragment {
         view=inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
         em=view.findViewById(R.id.profile_tv_email);
+        email_heading=view.findViewById(R.id.profile_tv_useremail_heading);
+        username_heading=view.findViewById(R.id.profile_tv_username_heading);
         tv=view.findViewById(R.id.profile_tv_username);
         save=view.findViewById(R.id.profile_tv_savebtn);
         change=view.findViewById(R.id.profile_tv_changebtn);
@@ -54,6 +61,10 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 change.setVisibility(View.GONE);
+                email_heading.setVisibility(View.GONE);
+                username_heading.setVisibility(View.GONE);
+                tv.setVisibility(View.GONE);
+                em.setVisibility(View.GONE);
                 profile__name.setEnabled(true);
                 profile__number.setEnabled(true);
                 getProfile__Adress.setEnabled(true);
@@ -68,6 +79,10 @@ public class FragmentProfile extends Fragment {
             public void onClick(View v) {
 
                 save.setVisibility(View.GONE);
+                username_heading.setVisibility(View.VISIBLE);
+                tv.setVisibility(View.VISIBLE);
+                email_heading.setVisibility(View.VISIBLE);
+                em.setVisibility(View.VISIBLE);
                 profile__name.setEnabled(false);
                 profile__number.setEnabled(false);
                 getProfile__Adress.setEnabled(false);
@@ -77,7 +92,7 @@ public class FragmentProfile extends Fragment {
                 classProfile.setProfile_name(profile__name.getText().toString());
                 classProfile.setProfile_adress(getProfile__Adress.getText().toString());
                 classProfile.setProfile_phone(profile__number.getText().toString());
-                databaseReference.child("uu").setValue(classProfile);
+                databaseReference.child(username).setValue(classProfile);
             }
         });
 
@@ -89,15 +104,16 @@ public class FragmentProfile extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        username=getDefaults("username",this.getContext());
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Profile");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                classProfile=new ClassProfile(dataSnapshot.child("uu").child("profile_username").getValue()+"",
-                        dataSnapshot.child("uu").child("profile_name").getValue()+"",
-                        dataSnapshot.child("uu").child("profile_email").getValue()+"",
-                        dataSnapshot.child("uu").child("profile_phone").getValue()+"",
-                        dataSnapshot.child("uu").child("profile_adress").getValue()+"");
+                classProfile=new ClassProfile(dataSnapshot.child(username).child("profile_username").getValue()+"",
+                        dataSnapshot.child(username).child("profile_name").getValue()+"",
+                        dataSnapshot.child(username).child("profile_email").getValue()+"",
+                        dataSnapshot.child(username).child("profile_phone").getValue()+"",
+                        dataSnapshot.child(username).child("profile_adress").getValue()+"");
                 Toast.makeText(getContext(),classProfile.getProfile_email(),Toast.LENGTH_SHORT).show();
                 em.setText(classProfile.getProfile_email());
                 tv.setText(classProfile.getProfile_username());
@@ -115,4 +131,8 @@ public class FragmentProfile extends Fragment {
 
     }
 
+    public static String getDefaults(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, null);
+    }
 }

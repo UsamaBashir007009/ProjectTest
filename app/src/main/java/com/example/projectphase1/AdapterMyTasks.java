@@ -29,14 +29,13 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
 
 
     Context mcontext;
-    ProgressBar p;
     List<ClassMyTask> myTasksClassList;
     Dialog dialog;
 
-    public AdapterMyTasks(Context mcontext, List<ClassMyTask> jobsClassList,ProgressBar pp) {
+    public AdapterMyTasks(Context mcontext, List<ClassMyTask> jobsClassList) {
         this.mcontext = mcontext;
         this.myTasksClassList = jobsClassList;
-        p=pp;
+
     }
 
     @NonNull
@@ -50,7 +49,6 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
         dialog.setContentView(R.layout.dialog_mytask);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-
 
         myViewHolder.linearLayout_Job_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +93,7 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder2 holder, int position) {
         holder.task_name.setText(myTasksClassList.get(position).getClassMyTask_Job_Name());
-        Picasso.with(mcontext).load(myTasksClassList.get(position).getClassMyTask_TaskImage()).into(holder.task_image );
-        p.setVisibility(View.GONE);
-
+        Picasso.with(mcontext).load(myTasksClassList.get(position).getClassMyTask_TaskImage()).into(holder.task_image);
     }
 
     @Override
