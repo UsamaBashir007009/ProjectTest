@@ -47,6 +47,7 @@ public class FragmentProfile extends Fragment {
     TextView email_heading;
     ImageView imageView;
     String username;
+    TextView textViewn;
     EditText em;
     TextView tv;
     Button change;
@@ -70,7 +71,7 @@ public class FragmentProfile extends Fragment {
         change=view.findViewById(R.id.profile_tv_changebtn);
         profile__name=view.findViewById(R.id.profile_tv_name);
         profile__number=view.findViewById(R.id.profile_tv_phone);
-
+        textViewn=view.findViewById(R.id.jn);
         getProfile__Adress=view.findViewById(R.id.profile_tv_adress);
 
         change.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +114,11 @@ public class FragmentProfile extends Fragment {
         });
 
 
+
+
+
+
+        getdata();
         Toast.makeText(getContext(),"view",Toast.LENGTH_SHORT).show();
         return view;
     }
@@ -122,6 +128,16 @@ public class FragmentProfile extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getdata();
+
+    }
+
+    public static String getDefaults(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, null);
+    }
+    public void getdata()
+    {
         username=getDefaults("username",this.getContext());
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Profile");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -138,6 +154,7 @@ public class FragmentProfile extends Fragment {
                 Toast.makeText(getContext(),"shoe",Toast.LENGTH_SHORT).show();
                 profile__number.setText(classProfile.getProfile_phone());
                 profile__name.setText(classProfile.getProfile_name());
+                textViewn.setText(profile__name.getText());
                 getProfile__Adress.setText(classProfile.getProfile_adress());
             }
 
@@ -148,10 +165,5 @@ public class FragmentProfile extends Fragment {
         });
 
 
-    }
-
-    public static String getDefaults(String key, Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(key, null);
     }
 }
