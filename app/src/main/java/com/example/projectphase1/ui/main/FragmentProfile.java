@@ -1,6 +1,8 @@
 package com.example.projectphase1.ui.main;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +15,10 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,15 +30,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class FragmentProfile extends Fragment {
 
+    private static final int CHOOSE_IMAGE =1 ;
     EditText profile__name;
     EditText profile__number;
     EditText getProfile__Adress;
     TextView username_heading;
     TextView email_heading;
+    ImageView imageView;
     String username;
     EditText em;
     TextView tv;
@@ -43,11 +54,14 @@ public class FragmentProfile extends Fragment {
     Button save;
     View view;
     DatabaseReference databaseReference;
+    //https://www.wallpaperup.com/uploads/wallpapers/2014/09/24/455833/4816bfd02322b6bfa75cf5a86655a68e-700.jpg
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         view=inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
+        imageView=view.findViewById(R.id.profile_back);
         em=view.findViewById(R.id.profile_tv_email);
         email_heading=view.findViewById(R.id.profile_tv_useremail_heading);
         username_heading=view.findViewById(R.id.profile_tv_username_heading);
@@ -56,7 +70,9 @@ public class FragmentProfile extends Fragment {
         change=view.findViewById(R.id.profile_tv_changebtn);
         profile__name=view.findViewById(R.id.profile_tv_name);
         profile__number=view.findViewById(R.id.profile_tv_phone);
+
         getProfile__Adress=view.findViewById(R.id.profile_tv_adress);
+
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,8 +113,10 @@ public class FragmentProfile extends Fragment {
         });
 
 
+        Toast.makeText(getContext(),"view",Toast.LENGTH_SHORT).show();
         return view;
     }
+
 
 
     @Override
@@ -117,6 +135,7 @@ public class FragmentProfile extends Fragment {
                 Toast.makeText(getContext(),classProfile.getProfile_email(),Toast.LENGTH_SHORT).show();
                 em.setText(classProfile.getProfile_email());
                 tv.setText(classProfile.getProfile_username());
+                Toast.makeText(getContext(),"shoe",Toast.LENGTH_SHORT).show();
                 profile__number.setText(classProfile.getProfile_phone());
                 profile__name.setText(classProfile.getProfile_name());
                 getProfile__Adress.setText(classProfile.getProfile_adress());

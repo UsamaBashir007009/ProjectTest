@@ -51,7 +51,7 @@ public class HomePageTabScreen extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_profile) {
+        if (item.getItemId() == R.id.menu_feedback) {
             Intent intent = new Intent(this, MenuProfile.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.menu_help) {
