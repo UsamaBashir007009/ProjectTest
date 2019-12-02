@@ -106,7 +106,6 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
         private LinearLayout linearLayout_Job_item;
         private TextView task_name;
         private ImageView task_image;
-        private TextView task_status;
         public MyViewHolder2( View itemView) {
             super(itemView);
 
@@ -114,7 +113,6 @@ public class AdapterMyTasks extends RecyclerView.Adapter<AdapterMyTasks.MyViewHo
             linearLayout_Job_item=(LinearLayout)itemView.findViewById(R.id.mytask_item_id);
             task_name= (TextView)itemView.findViewById(R.id.task_item_name);
             task_image= (ImageView) itemView.findViewById(R.id.task_item_image);
-            task_status= (TextView)itemView.findViewById(R.id.status);
         }
     }
 }

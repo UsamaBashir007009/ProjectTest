@@ -36,18 +36,5 @@
         android:textColor="#000"
         android:text="Electrician" />
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1"
-        android:text="Completed"
-        android:textAlignment="textEnd"
-        android:textColor="@color/colorPrimary"
-        android:textSize="15dp"
-        android:textStyle="bold" />
-
 
 </LinearLayout>

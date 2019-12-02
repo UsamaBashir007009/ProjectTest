@@ -89,7 +89,6 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
 
                 rName.setText(""+jobsClassList.get(myViewHolder.getAdapterPosition()).getJobName());
                 Picasso.with(mcontext).load(jobsClassList.get(myViewHolder.getAdapterPosition()).getJobPhoto()).into( rImage);
-
                 dialog.show();
                 text=dialog.findViewById(R.id.dialogue_task_detail);
                 editText=dialog.findViewById(R.id.dialogue_Task_location);
@@ -229,7 +228,6 @@ public class AdapterTasks extends RecyclerView.Adapter<AdapterTasks.MyViewHolder
     public void show_notifiication()
     {
         AlarmManager alarmManager = (AlarmManager)mcontext.getSystemService(Context.ALARM_SERVICE);
-
         Intent notificationIntent = new Intent(mcontext, AlarmReceiver.class);
         PendingIntent broadcast = PendingIntent.getBroadcast(mcontext, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
