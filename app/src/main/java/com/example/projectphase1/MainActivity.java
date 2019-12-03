@@ -35,6 +35,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
 
-        Toast.makeText(this,"done ",Toast.LENGTH_LONG).show();
     }
 }

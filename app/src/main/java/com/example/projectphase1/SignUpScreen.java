@@ -99,7 +99,7 @@ public class SignUpScreen extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if(dataSnapshot.hasChild(user_name.getText().toString()))
                                                 {
-                                                    show_toast("User already exist. Login instead!");
+                                                    show_toast("User exists. Login Login Now!");
                                                 }
                                                 else
                                                 {
@@ -115,11 +115,10 @@ public class SignUpScreen extends AppCompatActivity {
                                                     roomDatabaseClass.myDao1().addProfileEntity(userEntity);
 
                                                     db.child(user_name.getText().toString()).setValue(new ClassProfile(user_name.getText().toString(),name.getText().toString(),email.getText().toString(),"phone number","Adress"));
-
+                                                    Toast.makeText(SignUpScreen.this,"ACCOUNT CREATED SUCCESSFULLY!!LOGIN NOW",Toast.LENGTH_LONG).show();
                                                     Intent intent = new Intent(SignUpScreen.this, SignInScreen.class);
                                                     startActivity(intent);
 
-                                                    show_toast("Account successfully created, Login now!");
 
                                                     email.getText().clear();
                                                     name.getText().clear();

@@ -119,7 +119,7 @@ public class FragmentProfile extends Fragment {
 
 
         getdata();
-        Toast.makeText(getContext(),"view",Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getContext(),"view",Toast.LENGTH_SHORT).show();
         return view;
     }
 
@@ -148,10 +148,10 @@ public class FragmentProfile extends Fragment {
                         dataSnapshot.child(username).child("profile_email").getValue()+"",
                         dataSnapshot.child(username).child("profile_phone").getValue()+"",
                         dataSnapshot.child(username).child("profile_adress").getValue()+"");
-                Toast.makeText(getContext(),classProfile.getProfile_email(),Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(),classProfile.getProfile_email(),Toast.LENGTH_SHORT).show();
                 em.setText(classProfile.getProfile_email());
                 tv.setText(classProfile.getProfile_username());
-                Toast.makeText(getContext(),"shoe",Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(),"shoe",Toast.LENGTH_SHORT).show();
                 profile__number.setText(classProfile.getProfile_phone());
                 profile__name.setText(classProfile.getProfile_name());
                 textViewn.setText(profile__name.getText());

@@ -24,7 +24,7 @@
             android:layout_height="290dp"
             android:layout_marginLeft="15dp"
             android:gravity="top"
-            android:hint="Type something..."
+            android:hint="@string/type_something"
             android:inputType="textMultiLine"
             android:lines="13" />
 
@@ -118,13 +118,13 @@
 
         <EditText
             android:id="@+id/resultText"
-            android:layout_width="385dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginLeft="15dp"
             android:background="#FFFFFF"
             android:enabled="false"
             android:gravity="top"
-            android:hint="Result will appear here."
+            android:layout_marginLeft="3dp"
+            android:hint="@string/result_will_appear_here"
             android:inputType="textMultiLine"
             android:lines="8"
             android:textColor="#000000" />
