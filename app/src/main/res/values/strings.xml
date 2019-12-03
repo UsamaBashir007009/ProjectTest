@@ -15,5 +15,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="country1_arrays">
+        <item>English</item>
+    </string-array>
+    <string-array name="country_arrays">
+        <item>Urdu</item>
+        <item>Arabic</item>
+        <item>Hindi</item>
+        <item>Chinese</item>
+
+    </string-array>
 
 </resources>

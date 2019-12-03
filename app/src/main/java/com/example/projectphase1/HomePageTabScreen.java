@@ -1,12 +1,8 @@
 package com.example.projectphase1;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -52,10 +48,10 @@ public class HomePageTabScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_feedback) {
-            Intent intent = new Intent(this, MenuProfile.class);
+            Intent intent = new Intent(this, MenuFeedback.class);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.menu_help) {
-            Intent intent = new Intent(this, MenuProfile.class);
+        } else if (item.getItemId() == R.id.menu_translate) {
+            Intent intent = new Intent(this, Translator.class);
             startActivity(intent);
         }
         else if(item.getItemId()==R.id.menu_logout)
